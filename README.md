@@ -25,7 +25,8 @@ Primeros pasos
 
 
 
-####Python 
+
+### Python 
 
 Para instalar las dependencias necesarias se debe utilizar los siguiente comandos :
 
@@ -43,7 +44,8 @@ Modificar IP y Puerto solo modifica el archivo *server.py*
 
 
 
-####NodeJS 
+
+#### NodeJS 
 
 Para instalar las dependencias necesarias se debe utilizar los siguiente comandos :
 
@@ -61,7 +63,7 @@ Modificar el Puerto solo modifica el archivo *app.js*
 
 
 
-####Docker 
+#### Docker 
 
 Para descargar la imagen docker del servidor NodeJS:
 
