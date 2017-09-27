@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ok</title>
+</head>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<style type="text/css">
+	body{
+		background-color: #2980b9;
+	}
+	h5 {
+		font-color: "#ecf0f1";
+		font-size: bold;
+	}
+</style>
+<body>
+	<div align="center">
+		<h5>Notifications from server</h5>
+		<input type="text" id="mensaje"><br><br>
+		<button onclick="enviar()">Send Notifications</button>
+	</div>
+<script type="text/javascript">
+	var server = "10.0.0.7"
+	//ar server = "207.249.127.174"
+	var socket = io.connect(`http://${server}:3000`, { transports: ['websocket'] });
+	console.log(`Conection http://${server}:3000`)
+	console.log("Notifications : ")
+	var mensajes =[]
+	function enviar() {
+		socket.emit('message', $("#mensaje").val())
+	}
+	socket.on('message', (message) =>{
+		mensajes.push(message)
+		console.log(message)
+	})
+</script>
+
+</body>
+</html>
