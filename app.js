@@ -8,13 +8,13 @@ var websocket = socketio(server);
 app.set('view engine', 'ejs');
 server.listen(3000, () => console.log('listening on *:3000'));
 
-var messages = []
+var alerts = []
 
 var s = null
 
 app.get("/", (req,res) => { 
   try {
-    s.broadcast.emit('message', "Se conectaron");
+    s.broadcast.emit('con', "Se conectaron");
   }catch (e) {
     console.log("Primer")
   }
@@ -25,11 +25,11 @@ app.get("/", (req,res) => {
 websocket.on('connection', (socket) => {
     s = socket
   	console.log('A client just joined on', socket.id);
-    
-  	socket.on('message', (message) => {
-  	  messages.push(message)
-  	  console.log(messages)
-  	  socket.broadcast.emit('message', message);
+  	socket.on('alert', (alert) => {
+  	  alerts.push(alert)
+  	  console.log(alerts)
+  	  socket.broadcast.emit('alert', alert);
+      socket.broadcast.emit('conterAlert', alerts.length);
   	});
 
 });

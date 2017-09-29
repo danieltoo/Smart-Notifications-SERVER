@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ok</title>
+	<title>Servidor de notiticaciones</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  
+    
 </head>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <style type="text/css">
 	body{
 		background-color: #2980b9;
 	}
-	h5 {
-		font-color: "#ecf0f1";
+	h3{
+		color:  #ecf0f1;
 		font-size: bold;
+		font-family: 'Montserrat';
 	}
 </style>
 <body>
+<br><br>
 	<div align="center">
-		<h5>Notifications from server</h5>
-		<input type="text" id="mensaje"><br><br>
-		<button onclick="enviar()">Send Notifications</button>
+		<h3>Notification server</h3>
+
+<br><br>
+<button type="button"  onclick="enviarWarning()" class="btn btn-warning">Warning</button>
+<button type="button" onclick="enviarDanger()" class="btn btn-danger">Danger</button>
+	
 	</div>
 <script type="text/javascript">
 	var server = "10.0.0.7"
 	//ar server = "207.249.127.174"
 	var socket = io.connect(`http://${server}:3000`, { transports: ['websocket'] });
+
 	console.log(`Conection http://${server}:3000`)
-	console.log("Notifications : ")
 	var mensajes =[]
-	function enviar() {
-		socket.emit('message', $("#mensaje").val())
+
+	
+
+	function enviarDanger() {
+		let alerta = {
+			id : "Alert:1",
+			type : "Alert",
+			alertType : "Accident",
+			eventObserved : "Car crash with injured people",
+			location : {
+				type : "feature",
+				coodinates : [ 18.87649,-99.21986]
+			},
+			datetime: "2017-08-30T07:03:38.00Z"
+
+		}
+		console.log(alerta)
+		socket.emit('alert', alerta)
 	}
-	socket.on('message', (message) =>{
-		mensajes.push(message)
-		console.log(message)
+	function enviarWarning() {
+		let alerta = {
+			id : "Alert:1",
+			type : "Alert",
+			alertType : "Traffic Jam",
+			eventObserved : "Manifestation in the city center",
+			location : {
+				type : "feature",
+				coodinates : [ 18.87649,-99.21986]
+			},
+			datetime: "2017-08-30T07:03:38.00Z"
+
+		}
+		console.log(alerta)
+		socket.emit('alert', alerta)
+	}
+	socket.on('alert', (alert) =>{
+		
+		mensajes.push(alert)
+		console.log(JSON.stringify(alert))
 	})
+	
 </script>
 
 </body>
