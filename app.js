@@ -7,11 +7,11 @@ var app = express();
 var server = http.Server(app);
 var websocket = socketio(server);
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
-server.listen(port, () => console.log('listening on *:8000'));
+server.listen(port, () => console.log('listening on *:3001'));
 
 var alerts = []
 var socketApps = null
@@ -69,10 +69,11 @@ app.use(function(req, res, next) {
 
 
 websocket.on('connection', (socket) => {
-    s = socket
+    socketApps = socket
   	console.log('A client just joined on', socket.id);
     socket.emit('counterAlert', alerts.length);
     socket.on('disconnect', function() {
       console.log('Got disconnect!');
    });
 });
+
