@@ -27,12 +27,13 @@
 		<h3>Notification server</h3>
 
 <br><br>
-<button type="button"  onclick="enviarWarning()" class="btn btn-warning">Warning</button>
-<button type="button" onclick="enviarDanger()" class="btn btn-danger">Danger</button>
+<button type="button"  onclick="enviarWarning()" class="btn btn-warning">Send warning notification</button>
+<button type="button" onclick="enviarDanger()" class="btn btn-danger">Send danger notification</button>
 	
 	</div>
 <script type="text/javascript">
-	var server = "10.0.0.7"
+	var server ='10.0.0.7'
+	//var server = "207.249.127.149"
 	//ar server = "207.249.127.174"
 	var socket = io.connect(`http://${server}:3000`, { transports: ['websocket'] });
 
@@ -51,7 +52,8 @@
 				type : "feature",
 				coodinates : [ 18.87649,-99.21986]
 			},
-			datetime: "2017-08-30T07:03:38.00Z"
+			datetime: "2017-08-30T07:03:38.00Z",
+			color : '#e74c3c'
 
 		}
 		console.log(alerta)
@@ -67,7 +69,8 @@
 				type : "feature",
 				coodinates : [ 18.87649,-99.21986]
 			},
-			datetime: "2017-08-30T07:03:38.00Z"
+			datetime: "2017-08-30T07:03:38.00Z",
+			color : '#f1c40f'
 
 		}
 		console.log(alerta)
